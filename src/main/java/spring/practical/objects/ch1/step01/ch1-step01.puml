@@ -1,0 +1,55 @@
+@startuml
+skinparam linetype ortho
+skinparam padding 3
+
+' 클래스 정의
+class Audience {
+    + getBag()
+}
+
+class Bag {
+    - amount: BigDecimal
+    + hasInvitation()
+    + hasTicket()
+    + setTicket(ticket)
+    + minusAmount(amount)
+    + plusAmount(amount)
+}
+
+class Invitation {
+    - when: LocalDateTime
+}
+
+class Ticket {
+    - fee: BigDecimal
+}
+
+class TicketSeller {
+    + getTicketOffice()
+}
+
+class TicketOffice {
+    - amount: BigDecimal
+    + getTicket()
+    + minusAmount(amount)
+    + plusAmount(amount)
+}
+
+' 관계 정의
+Audience -right-> Bag
+
+Bag -right-> Invitation
+Bag -right-> Ticket
+
+TicketSeller -right-> TicketOffice
+
+TicketOffice "1" -down-> "*" Ticket
+
+' 레이아웃 조정
+'Invitation -[hidden]up- Ticket
+Ticket -[hidden]up- Invitation
+TicketOffice -[hidden]up- Ticket
+
+'TicketSeller -[hidden]down- Bag
+
+@enduml

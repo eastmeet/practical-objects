@@ -14,7 +14,7 @@ public class TicketOffice {
         this.tickets.addAll(Arrays.asList(tickets));
     }
 
-    public Ticket getTicket() {
+    private Ticket getTicket() {
         return this.tickets.removeFirst();
     }
 
@@ -22,9 +22,14 @@ public class TicketOffice {
         this.amount = this.amount.subtract(amount);
     }
 
-    public void plusAmount(BigDecimal amount) {
+    private void plusAmount(BigDecimal amount) {
         this.amount = this.amount.add(amount);
     }
 
+    public void sellTicketTo(Audience audience) {
+        Ticket ticket = this.getTicket();
+        BigDecimal fee = audience.buy(ticket);
+        this.plusAmount(fee);
+    }
 
 }

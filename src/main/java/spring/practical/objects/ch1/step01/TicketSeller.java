@@ -12,7 +12,9 @@ public class TicketSeller {
     }
 
     public void sellTo(Audience audience) {
-        ticketOffice.sellTicketTo(audience);
+        Ticket ticket = this.ticketOffice.getTicket();
+        BigDecimal fee = audience.buy(ticket);
+        this.ticketOffice.plusAmount(fee);
     }
 
 }

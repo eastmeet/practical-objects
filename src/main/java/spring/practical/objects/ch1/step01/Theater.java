@@ -10,17 +10,7 @@ public class Theater {
     }
 
     public void enter(Audience audience) {
-        Bag bag = audience.getBag();
-        TicketOffice ticketOffice = ticketSeller.getTicketOffice();
-        Ticket ticket = ticketOffice.getTicket();
-
-        if (!bag.hasInvitation()) {
-            BigDecimal fee = ticket.getFee();
-            bag.minusAmount(fee);
-            ticketOffice.plusAmount(fee);
-        }
-        
-        bag.setTicket(ticket);
+        this.ticketSeller.sellTo(audience);
     }
 
 }

@@ -12,16 +12,9 @@ public class TicketSeller {
     }
 
     public void sellTo(Audience audience) {
-        Bag bag = audience.getBag();
         Ticket ticket = this.ticketOffice.getTicket();
-
-        if (!bag.hasInvitation()) {
-            BigDecimal fee = ticket.getFee();
-            bag.minusAmount(fee);
-            this.ticketOffice.plusAmount(fee);
-        }
-
-        bag.setTicket(ticket);
+        BigDecimal fee = audience.buy(ticket);
+        this.ticketOffice.plusAmount(fee);
     }
 
 }

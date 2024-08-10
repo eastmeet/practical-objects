@@ -11,18 +11,7 @@ public class Audience {
     }
 
     public BigDecimal buy(Ticket ticket) {
-
-        BigDecimal fee;
-
-        if (!this.bag.hasInvitation()) {
-            fee = ticket.getFee();
-            bag.minusAmount(fee);
-        } else {
-            fee = BigDecimal.ZERO;
-        }
-
-        bag.setTicket(ticket);
-        return fee;
+        return this.bag.hold(ticket);
     }
 
 }

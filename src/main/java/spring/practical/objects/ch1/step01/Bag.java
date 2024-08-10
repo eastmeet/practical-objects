@@ -1,5 +1,6 @@
 package spring.practical.objects.ch1.step01;
 
+import lombok.AccessLevel;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -8,7 +9,7 @@ public class Bag {
     private BigDecimal amount;
     private Invitation invitation;
 
-    @Setter
+    @Setter(value = AccessLevel.PRIVATE)
     private Ticket ticket;
 
     public Bag(BigDecimal amount) {
@@ -20,7 +21,21 @@ public class Bag {
         this.amount = amount;
     }
 
-    public boolean hasInvitation() {
+    public BigDecimal hold(Ticket ticket) {
+        BigDecimal fee;
+
+        if (!this.hasInvitation()) {
+            fee = ticket.getFee();
+            this.minusAmount(fee);
+        } else {
+            fee = BigDecimal.ZERO;
+        }
+
+        this.setTicket(ticket);
+        return fee;
+    }
+
+    private boolean hasInvitation() {
         return this.invitation != null;
     }
 
@@ -28,7 +43,7 @@ public class Bag {
         return this.ticket != null;
     }
 
-    public void minusAmount(BigDecimal amount) {
+    private void minusAmount(BigDecimal amount) {
         this.amount = this.amount.subtract(amount);
     }
 
